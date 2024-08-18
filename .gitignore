@@ -1,0 +1,13 @@
+/dist/
+/target/
+/Cargo.lock
+
+.env
+unused
+*.DS_Store
+*.png
+*.svg
+*.ico
+*.icns
+.vscode
+src-tauri/binaries
