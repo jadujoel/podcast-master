@@ -11,3 +11,5 @@ unused
 *.icns
 .vscode
 src-tauri/binaries
+/example/
+/output/
