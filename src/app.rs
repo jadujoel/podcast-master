@@ -60,6 +60,13 @@ async fn pick_file() -> String {
     f.unwrap().to_string_lossy().into_owned()
 }
 
+async fn pick_directory() -> String {
+    let mut result = dialog::FileDialogBuilder::new();
+    let f = result.pick_folder().await.unwrap();
+    f.unwrap().to_string_lossy().into_owned()
+}
+
+
 async fn open_directory(directory: &str) -> String {
     #[derive(Serialize)]
     struct OpenDirectoryArgs<'a> {
@@ -68,13 +75,22 @@ async fn open_directory(directory: &str) -> String {
     tauri::invoke("open_directory", &OpenDirectoryArgs { directory }).await.unwrap()
 }
 
-async fn update_some_file (ev: MouseEvent) -> String {
+async fn get_file_path (ev: MouseEvent) -> String {
     let target = ev.target().unwrap().unchecked_into::<HtmlInputElement>();
     let file_path = pick_file().await;
     log_str(&format!("file path: {file_path}"));
     target.set_value(&file_path);
     file_path
 }
+
+async fn get_directory_path (ev: MouseEvent) -> String {
+    let target = ev.target().unwrap().unchecked_into::<HtmlInputElement>();
+    let directory_path = pick_directory().await;
+    log_str(&format!("directory path: {directory_path}"));
+    target.set_value(&directory_path);
+    directory_path
+}
+
 
 #[component]
 #[allow(clippy::module_name_repetitions, clippy::too_many_lines)]
@@ -177,19 +193,19 @@ pub fn App() -> impl IntoView {
 
     let update_input_file = move |ev: MouseEvent| {
         spawn_local(async move {
-            set_input_file.set(update_some_file(ev).await);
+            set_input_file.set(get_file_path(ev).await);
         });
     };
 
     let update_artwork_file = move |ev: MouseEvent| {
         spawn_local(async move {
-            set_artwork_file.set(update_some_file(ev).await);
+            set_artwork_file.set(get_file_path(ev).await);
         });
     };
 
     let update_output_directory = move |ev: MouseEvent| {
         spawn_local(async move {
-            set_output_directory.set(update_some_file(ev).await);
+            set_output_directory.set(get_directory_path(ev).await);
         });
     };
 

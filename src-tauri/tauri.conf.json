@@ -28,6 +28,13 @@
             "sidecar": true
           }
         ]
+      },
+      "protocol": {
+        "asset": true,
+        "assetScope": {
+          "allow": ["**"],
+          "deny": []
+        }
       }
     },
     "windows": [

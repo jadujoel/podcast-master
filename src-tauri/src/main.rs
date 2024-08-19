@@ -17,8 +17,6 @@ struct PodcastOptions<'a> {
     output_directory: &'a str,
 }
 
-// implement default clone for PodcastOptions
-
 #[tauri::command]
 fn example() {
     // Prepare the podcast
