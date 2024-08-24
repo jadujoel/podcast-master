@@ -304,7 +304,7 @@ pub fn App() -> impl IntoView {
               on:click = prepare_podcast
               id="prepare_podcast"
             >
-                Lets Go!
+                Create Podcast
             </button>
         </main>
     }
