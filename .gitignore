@@ -14,4 +14,4 @@ src-tauri/binaries
 /example/
 /output/
 
-!/images/
+!/images/*.jpg
