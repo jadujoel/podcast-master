@@ -13,3 +13,5 @@ unused
 src-tauri/binaries
 /example/
 /output/
+
+!/images/
